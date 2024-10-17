@@ -1,0 +1,36 @@
+﻿@model List<TaskListViewModel>
+
+    <div class="alert alert-info fw-bold">
+
+    @User.Claims.FirstOrDefault(x => x.Type == "email")?.Value 
+
+
+    </div>
+
+@if(User.Claims.FirstOrDefault(x => x.Type == "id")?.Value != null)
+{
+
+
+<h3 class="text-center mt-5">Görev Listeleme Sayfası</h3>
+
+<a asp-controller="Task" asp-action="Add" class="btn btn-success fw-bold mb-3 mt-3">Yeni Ekle</a>
+
+<div class="mt-5">
+    @foreach (var task in Model)
+    {
+        <div class="card">
+            <div class="card-header fw-bold">
+                @task.Title
+            </div>
+            <div class="card-body">
+                <p class="card-text">@task.Content</p>
+                <a asp-controller="Task" asp-action="CompleteTask" asp-route-id="@task.Id" class="btn btn-warning">
+                    @(task.IsDone == false ? "Görev Tamamla" : "Görev Tamamlanmadı")
+                </a>
+                <a asp-controller="Task" asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Görevi Düzenle</a>
+                <a asp-controller="Task" asp-action="CancelTask" asp-route-id="@task.Id" class="btn btn-danger">Görevi İptal Et</a>
+            </div>
+        </div>
+    }
+</div>
+};

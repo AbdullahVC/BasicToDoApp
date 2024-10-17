@@ -1,0 +1,25 @@
+﻿@model TaskAddViewModel
+
+<h3>Yeni Görev Ekleme Sayfası</h3>
+
+<form method="post" asp-controller="Task" asp-action="Add">
+    <div>
+        <label>Başlık</label>
+        <input asp-for="Title" class="form-control" type="text" />
+        <span asp-validation-for="Title" class="text-danger mt-2 fw-bold"></span>
+    </div>
+
+    <div>
+        <label>İçerik</label>
+        <textarea asp-for="Content" rows="4" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger mt-2 fw-bold"></span>
+    </div>
+
+    <div>
+        <label>Görevi Atayan</label>
+        <select asp-for="OwnerId" asp-items="@( new SelectList(ViewBag.Owners, "Id", "Name"))" class="form-control"><option selected disabled>Seçiniz</option></select>
+        <span asp-validation-for="OwnerId" class="text-danger mt-2 fw-bold"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Kaydet</button>
+</form>
